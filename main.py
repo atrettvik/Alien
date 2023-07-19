@@ -43,9 +43,13 @@ class Ship:
         self.cool_down_counter = 0
         
     def draw(self, window):
-        pygame.draw.rect(window, (255, 0, 0), (self.x, self.y, 50, 50))               
+        window.blit(self.ship_img, (self.x, self.y))
+        
+                   
             
-            
+class Player(Ship):
+    def __init__(self, x, y, health=100):
+        super().__init__(self, x, y, health)           
 
 # GAME FUNCTIONS
 
@@ -83,13 +87,13 @@ def main():
                 run = False
         
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_a]: #LEFT
+        if keys[pygame.K_a] and ship.x - player_vel > 0: #LEFT
             ship.x -= player_vel
-        if keys[pygame.K_d]: #RIGHT
+        if keys[pygame.K_d] and ship.x + player_vel + 50 < WIDTH: #RIGHT
             ship.x += player_vel
-        if keys[pygame.K_w]: #UP
+        if keys[pygame.K_w] and ship.y - player_vel > 0: #UP
             ship.y -= player_vel
-        if keys[pygame.K_s]: #DOWN
+        if keys[pygame.K_s] and ship.y + player_vel + 50 < HEIGHT: #DOWN
             ship.y += player_vel
 
 main()
