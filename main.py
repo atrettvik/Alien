@@ -83,6 +83,7 @@ def main():
     level = 0
     lives = 5
     main_font = pygame.font.SysFont("comicsans", 40)
+    lost_font = pygame.font.SysFont("comicsans", 60)
     
  #ENEMY STATS
     enemies = []
@@ -91,9 +92,11 @@ def main():
     
     player_vel = 5
     
-    player = Player(450, 700)    
-    
+    player = Player(450, 700)
+    lost = False
+        
     clock = pygame.time.Clock()
+
     
     def redraw_window():
         WIN.blit(BG, (0,0))
@@ -107,13 +110,24 @@ def main():
         for enemy in enemies:
             enemy.draw(WIN)        
         
-        player.draw(WIN)      
+        player.draw(WIN)
+        
+        if lost:
+            lost_label = lost_font.render("You Lost!!", 1, (255, 255, 255))
+            WIN.blit(lost_label, (WIDTH/2 - lost_label.get_width()/2, 350))
+            
         
         pygame.display.update()
+
         
 # EVENT LOOP   
     while run:
         clock.tick(fps)
+        
+        if lives <= 0 or player.health <= 0:
+            lost = True
+            
+            
         
         if len(enemies) == 0:
             level += 1
