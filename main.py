@@ -79,7 +79,7 @@ class Enemy(Ship):
 
 def main():
     run = True
-    fps = 60
+    FPS = 60
     level = 0
     lives = 5
     main_font = pygame.font.SysFont("comicsans", 40)
@@ -93,9 +93,11 @@ def main():
     player_vel = 5
     
     player = Player(450, 700)
-    lost = False
         
     clock = pygame.time.Clock()
+    
+    lost = False
+    lost_count = 0
 
     
     def redraw_window():
@@ -122,12 +124,18 @@ def main():
         
 # EVENT LOOP   
     while run:
-        clock.tick(fps)
+        clock.tick(FPS)
+        redraw_window()
         
         if lives <= 0 or player.health <= 0:
             lost = True
-            
-            
+            lost_count += 1
+        
+        if lost:
+            if lost_count > FPS * 3:
+                run = False
+            else:
+                continue
         
         if len(enemies) == 0:
             level += 1
