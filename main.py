@@ -108,11 +108,11 @@ class Player(Ship):
         self.max_health = health
         
     def move_lasers(self, vel, objs):
-        self.coldown()
+        self.cooldown()
         for laser in self.lasers:
             laser.move(vel)
             if laser.off_screen(HEIGHT):
-                self.lassers.remove(laser)
+                self.lasers.remove(laser)
             else:
                 for obj in objs:
                     if laser.collision(obj):
