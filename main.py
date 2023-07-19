@@ -117,7 +117,7 @@ class Player(Ship):
                 for obj in objs:
                     if laser.collision(obj):
                         obj.health -= 100
-                        obj.remove(obj)
+                        objs.remove(obj)
                         self.lasers.remove(laser)
     
     
