@@ -44,7 +44,7 @@ class Laser:
         self.y += vel
         
     def off_screen(self, height):
-        return self.y <= height and self.y >= 0
+        return not(self.y <= height and self.y >= 0)
     
     def collision(self, obj):
         return collide(obj, self)
@@ -98,7 +98,7 @@ class Ship:
         return self.ship_img.get_height()
           
     
-            
+# PLAYER SHIP            
 class Player(Ship):
     def __init__(self, x, y, health=100):
         super().__init__(x, y, health)
@@ -116,11 +116,10 @@ class Player(Ship):
             else:
                 for obj in objs:
                     if laser.collision(obj):
-                        obj.health -= 100
                         objs.remove(obj)
                         self.lasers.remove(laser)
     
-    
+# ENEMY SHIP 
 class Enemy(Ship):
     COLOR_MAP = {
         "red": (RED_SPACE_SHIP, RED_LASER),
