@@ -69,7 +69,7 @@ class Ship:
             laser.draw(window)
             
     def move_lasers(self, vel, obj):
-        self.coldown()
+        self.cooldown()
         for laser in self.lasers:
             laser.move(vel)
             if laser.off_screen(HEIGHT):
@@ -238,6 +238,6 @@ def main():
                 lives -= 1
                 enemies.remove(enemy)            
         
-        player.move.lasers(laser_vel, enemies)
+        player.move._lasers(laser_vel, enemies)
 
 main()
