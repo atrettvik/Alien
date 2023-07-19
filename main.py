@@ -44,18 +44,16 @@ class Ship:
         
     def draw(self, window):
         window.blit(self.ship_img, (self.x, self.y))
-        
-        
                    
             
 class Player(Ship):
     def __init__(self, x, y, health=100):
+        super().__init__(x, y, health)
         self.ship_img = YELLOW_SPACE_SHIP
         self.laser_img = YELLOW_LASER
         self.mask = pygame.mask.from_surface(self.ship_img)
         self.max_health = health
-        super().__init__(x, y, health)
-                
+        
 
 # GAME FUNCTIONS
 
@@ -66,7 +64,7 @@ def main():
     lives = 5
     main_font = pygame.font.SysFont("comicsans", 40)
     player_vel = 5
-    player = Ship(450, 700)    
+    player = Player(450, 700)    
     
     clock = pygame.time.Clock()
     
