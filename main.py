@@ -46,7 +46,6 @@ class Ship:
         pygame.draw.rect(window, (255, 0, 0), (self.x, self.y, 50, 50))               
             
             
-            
 
 # GAME FUNCTIONS
 
@@ -56,8 +55,8 @@ def main():
     level = 1
     lives = 5
     main_font = pygame.font.SysFont("comicsans", 40)
-    
-    ship = Ship(300, 650)    
+    player_vel = 5
+    ship = Ship(450, 700)    
     
     clock = pygame.time.Clock()
     
@@ -74,7 +73,7 @@ def main():
         
         pygame.display.update()
         
-        
+# EVENT LOOP   
     while run:
         clock.tick(fps)
         redraw_window()
@@ -82,7 +81,15 @@ def main():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 run = False
-
-
+        
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_a]: #LEFT
+            ship.x -= player_vel
+        if keys[pygame.K_d]: #RIGHT
+            ship.x += player_vel
+        if keys[pygame.K_w]: #UP
+            ship.y -= player_vel
+        if keys[pygame.K_s]: #DOWN
+            ship.y += player_vel
 
 main()
