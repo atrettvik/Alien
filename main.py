@@ -154,11 +154,11 @@ def main():
     
  #ENEMY STATS
     enemies = []
-    wave_length = 5
+    wave_length = 4
     enemy_vel = 1
     
     player_vel = 5
-    laser_vel = 4
+    laser_vel = 6
     
     player = Player(450, 700)
         
@@ -209,7 +209,7 @@ def main():
             level += 1
             wave_length += 5
             for i in range(wave_length):
-                enemy = Enemy(random.randrange(50, WIDTH-50), random.randrange(-1500, -100), random.choice(["red", "blue", "green"]))
+                enemy = Enemy(random.randrange(100, WIDTH-100), random.randrange(-1500, -100), random.choice(["red", "blue", "green"]))
                 enemies.append(enemy)  
             
         
