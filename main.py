@@ -155,15 +155,10 @@ def collide(obj1, obj2):
 
 
 def player_collision(player, obj):
-    player_rect = player.ship_img.get_rect()
-    player_rect.topleft = (player.x, player.y)
-
-    obj_rect = obj.ship_img.get_rect()
-    obj_rect.topleft = (obj.x, obj.y)
-
+    player_rect = player.ship_img.get_rect(topleft=(player.x, player.y))
+    obj_rect = obj.ship_img.get_rect(topleft=(obj.x, obj.y))
     return player_rect.colliderect(obj_rect)
-    
-        
+       
 
 # GAME FUNCTIONS
 
@@ -269,7 +264,7 @@ def main():
         for laser in remove_lasers:
             enemy.lasers.remove(laser)
                 
-        if player_collision(enemy, player):
+        if player_collision(player, enemy):
             player.health -= 5
             enemies.remove(enemy)
         elif enemy.y + enemy.get_height() > HEIGHT:
