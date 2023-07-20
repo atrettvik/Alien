@@ -142,14 +142,27 @@ class Enemy(Ship):
         super().__init__(x, y, health)
         self.ship_img, self.laser_img = self.COLOR_MAP[color]
         self.mask = pygame.mask.from_surface(self.ship_img)
+    
         
     def move(self, vel):
         self.y += vel
+
         
 def collide(obj1, obj2):
     offset_x = obj2.x - obj1.x
     offset_y = obj2.y - obj1.y
-    return obj1.mask.overlap(obj2.mask, (offset_x, offset_y)) != None    
+    return obj1.mask.overlap(obj2.mask, (offset_x, offset_y)) != None
+
+
+def player_collision(ship, obj2):
+    ship_rect = ship.ship_img.get_rect()
+    ship.rect.topleft = (ship.x, ship.y)
+
+    obj_rect = obj.ship_img.get_rect()
+    obj_rect.topleft = (obj.x, obj.y)
+
+    return ship_rect.colliderect(obj_rect)
+    
         
 
 # GAME FUNCTIONS
@@ -243,15 +256,20 @@ def main():
         for enemy in enemies[:]:
             enemy.move(enemy_vel)
             enemy.move_lasers(laser_vel, player)
-
+    
+        remove_lasers = []
+    
         for laser in enemy.lasers:
             if collide(laser, player):
                 player.health -= 5
-                enemy.lasers.remove(laser)
+                remove_lasers.append(laser)
             elif laser.y + laser.img.get_height() > HEIGHT:
-                enemy.lasers.remove(laser)
+                remove_lasers.append(laser)
                 
-        if collide(enemy, player):
+        for laser in remove_lasers:
+            enemy.lasers.remove(laser)
+                
+        if player_collision(enemy, player):
             player.health -= 5
             enemies.remove(enemy)
         elif enemy.y + enemy.get_height() > HEIGHT:
