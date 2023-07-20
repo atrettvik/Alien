@@ -162,8 +162,7 @@ def player_collision(player, obj):
     obj_rect.topleft = (obj.x, obj.y)
 
     return player_rect.colliderect(obj_rect)
-    
-        
+       
 
 # GAME FUNCTIONS
 
