@@ -7,7 +7,7 @@ pygame.font.init()
 
 
 # PYGAME SETTINGS
-WIDTH, HEIGHT = 1280, 840
+WIDTH, HEIGHT = 800, 800
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Alien")
 
@@ -245,9 +245,10 @@ def main():
 
         for laser in enemy.lasers:
             if collide(laser, player):
-                player.health -= 10
+                player.health -= 5
                 enemy.lasers.remove(laser)
-            elif laser.y + laser.img.get_height() > HEIGHT:
+            elif enemy.y + enemy.get_height() > HEIGHT:
+                lives -= 1
                 enemy.lasers.remove(laser)
 
                 
