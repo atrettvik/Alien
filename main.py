@@ -156,9 +156,14 @@ def collide(obj1, obj2):
 
 def player_collision(player, obj):
     player_rect = player.ship_img.get_rect(topleft=(player.x, player.y))
-    obj_rect = obj.ship_img.get_rect(topleft=(obj.x, obj.y))
+    player_rect.topleft = (player.x, player.y)
+
+    obj_rect = obj.ship_img.get_rect()
+    obj_rect.topleft = (obj.x, obj.y)
+
     return player_rect.colliderect(obj_rect)
-       
+    
+        
 
 # GAME FUNCTIONS
 
@@ -252,8 +257,7 @@ def main():
             enemy.move(enemy_vel)
             enemy.move_lasers(laser_vel, player)
     
-        remove_lasers = []
-    
+        remove_lasers = []    
         for laser in enemy.lasers:
             if collide(laser, player):
                 player.health -= 5
@@ -264,10 +268,11 @@ def main():
         for laser in remove_lasers:
             enemy.lasers.remove(laser)
                 
-        if player_collision(player, enemy):
+        if player_collision(enemy, player):
             player.health -= 5
             enemies.remove(enemy)
-        elif enemy.y + enemy.get_height() > HEIGHT:
+        
+        if enemy.y + enemy.get_height() > HEIGHT:
             lives -= 1
             enemies.remove(enemy)
                 
@@ -278,4 +283,20 @@ def main():
         
         player.move_lasers(-laser_vel, enemies)
 
-main()
+
+def main_menu():
+    title_font = pygame.font.SysFont("Comicsans", 60)
+    run = True
+    while run:
+        WIN.blit(BG, (0,0))
+        title_label = title_font.render("Press the mouse to begin...", 1, (255, 255, 255))
+        WIN.blit(title_label, (WIDTH/2 - title_label.get_width()/2, 350))
+        pygame.display.update()        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                main()
+    pygame.quit()
+
+main_menu()
