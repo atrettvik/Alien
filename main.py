@@ -114,7 +114,7 @@ class Player(Ship):
             if laser.off_screen(HEIGHT):
                 self.lasers.remove(laser)
             else:
-                for obj in objs:
+                for obj in objs[:]:
                     if laser.collision(obj):
                         objs.remove(obj)
                         if laser in self.lasers:
@@ -239,20 +239,21 @@ def main():
             player.shoot()
             
             
-            
         for enemy in enemies[:]:
             enemy.move(enemy_vel)
             enemy.move_lasers(laser_vel, player)
-            
+
+        for laser in enemy.lasers:
+            if collide(laser, player):
+                player.health -= 10
+                enemy.lasers.remove(laser)
+            elif laser.y + laser.img.get_height() > HEIGHT:
+                enemy.lasers.remove(laser)
+
+                
+                
         if random.randrange(0, 2 * 60) == 1:
-                enemy.shoot()
-    
-        if collide(enemy, player):
-            player.health -= 10
-            enemies.remove(enemy)        
-        elif enemy.y + enemy.get_height() > HEIGHT:
-                lives -= 1
-                enemies.remove(enemy)
+            enemy.shoot()
                       
         
         player.move_lasers(-laser_vel, enemies)
