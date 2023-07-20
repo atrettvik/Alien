@@ -154,9 +154,9 @@ def collide(obj1, obj2):
     return obj1.mask.overlap(obj2.mask, (offset_x, offset_y)) != None
 
 
-def player_collision(ship, obj2):
+def player_collision(ship, obj):
     ship_rect = ship.ship_img.get_rect()
-    ship.rect.topleft = (ship.x, ship.y)
+    ship_rect.topleft = (ship.x, ship.y)
 
     obj_rect = obj.ship_img.get_rect()
     obj_rect.topleft = (obj.x, obj.y)
