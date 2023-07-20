@@ -248,7 +248,7 @@ def main():
                 enemy.shoot()
     
         if collide(enemy, player):
-            player.health -= 5
+            player.health -= 10
             enemies.remove(enemy)        
         elif enemy.y + enemy.get_height() > HEIGHT:
                 lives -= 1
