@@ -266,14 +266,16 @@ def main():
                 
         for laser in remove_lasers:
             enemy.lasers.remove(laser)
+        
+        if enemy.y + enemy.get_height() > HEIGHT:
+            lives -= 1
+            enemies.remove(enemy)
                 
         if player_collision(enemy, player):
             player.health -= 5
             enemies.remove(enemy)
         
-        if enemy.y + enemy.get_height() > HEIGHT:
-            lives -= 1
-            enemies.remove(enemy)
+
                 
                 
         if random.randrange(0, 2 * 60) == 1:
