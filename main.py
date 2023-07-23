@@ -229,9 +229,13 @@ def main():
         
         if len(enemies) == 0:
             level += 1
-            wave_length += 5
+            wave_length += 4
             for i in range(wave_length):
-                enemy = Enemy(random.randrange(100, WIDTH-100), random.randrange(-1500, -100), random.choice(["red", "blue", "green"]))
+                enemy = Enemy(
+                    random.randrange(100, WIDTH-100),
+                    random.randrange(-1500, -100),
+                    random.choice(["red", "blue", "green"])
+                    )
                 enemies.append(enemy)  
             
         
@@ -272,7 +276,7 @@ def main():
             enemies.remove(enemy)
                 
         if player_collision(enemy, player):
-            player.health -= 5
+            player.health -= 10
             enemies.remove(enemy)
         
 
