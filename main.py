@@ -8,7 +8,7 @@ pygame.font.init()
 
 
 # PYGAME SETTINGS
-WIDTH, HEIGHT = 800, 800
+WIDTH, HEIGHT = 980, 980
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Alien")
 
@@ -312,7 +312,7 @@ def main_menu():
     while run:
         WIN.blit(BG, (0, 0))
         title_label = title_font.render(
-            "Press the mouse to begin...", 1, (255, 255, 255)
+            "Trykk for å starte GUUUTE...", 1, (255, 255, 255)
         )
         WIN.blit(title_label, (WIDTH / 2 - title_label.get_width() / 2, 350))
         pygame.display.update()
